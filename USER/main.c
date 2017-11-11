@@ -127,20 +127,20 @@ static void com_task(void *p_arg)
 
 	static void run_time_state_task(void *p_arg)
 	{
-		char * pxTaskStatusArray = NULL;
+		char * pStatsMsg = NULL;
 		(void) p_arg;
 		
 		for(;;)
 		{	
 			taskENTER_CRITICAL();
 			{
-				pxTaskStatusArray = pvPortMalloc( uxTaskGetNumberOfTasks() * sizeof( TaskStatus_t ) );
-				if(pxTaskStatusArray != NULL)
+				pStatsMsg = pvPortMalloc( uxTaskGetNumberOfTasks() * sizeof( TaskStatus_t ) );
+				if(pStatsMsg != NULL)
 				{
-					vTaskGetRunTimeStats(pxTaskStatusArray);
+					vTaskGetRunTimeStats(pStatsMsg);
 					printf("Name\tAbs Time\t%%Time\r\n");
-					printf("%s\r\n",(char *)pxTaskStatusArray);
-					vPortFree(pxTaskStatusArray);
+					printf("%s\r\n",(char *)pStatsMsg);
+					vPortFree(pStatsMsg);
 				}
 				else
 					printf("run_time_state_task…Í«Îƒ⁄¥Ê ß∞‹\r\n");
